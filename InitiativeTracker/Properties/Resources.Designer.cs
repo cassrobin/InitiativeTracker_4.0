@@ -61,11 +61,302 @@ namespace InitiativeTracker.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Paralyzed, Restrained, Stunned, Poisoned, Charmed, Frightened, Hexed (Strength), Hexed (Wisdom), Hexed (Intelligence), Hexed (Constitution), Hexed (Dexterity), Hexed (Charisma), Blinded, Deafened, Exhausted (1), Exhausted (2), Exhausted (3), Exhausted (4), Exhausted (5), Grappled, Incapacitated, Invisible, Petrified, Prone, Unconcious, Hasted, Polymorphed, Blessed.
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Bless {
+            get {
+                object obj = ResourceManager.GetObject("Bless", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Blind {
+            get {
+                object obj = ResourceManager.GetObject("Blind", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Charm {
+            get {
+                object obj = ResourceManager.GetObject("Charm", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blessed,Blinded,Charmed,Deafened,Exhausted (1),Exhausted (2),Exhausted (3),Exhausted (4),Exhausted (5),Frightened,Grappled,Hasted,Hexed (Charisma),Hexed (Constitution),Hexed (Dexterity),Hexed (Intelligence),Hexed (Strength),Hexed (Wisdom),Incapacitated,Invisible,Paralyzed,Petrified,Poisoned,Polymorphed,Prone,Restrained,Stunned,Unconcious
+        ///
+        ///.
         /// </summary>
         internal static string Conditions {
             get {
                 return ResourceManager.GetString("Conditions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Deaf {
+            get {
+                object obj = ResourceManager.GetObject("Deaf", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Exh1 {
+            get {
+                object obj = ResourceManager.GetObject("Exh1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Exh2 {
+            get {
+                object obj = ResourceManager.GetObject("Exh2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Exh3 {
+            get {
+                object obj = ResourceManager.GetObject("Exh3", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Exh4 {
+            get {
+                object obj = ResourceManager.GetObject("Exh4", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Exh5 {
+            get {
+                object obj = ResourceManager.GetObject("Exh5", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Fright {
+            get {
+                object obj = ResourceManager.GetObject("Fright", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Grap {
+            get {
+                object obj = ResourceManager.GetObject("Grap", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Haste {
+            get {
+                object obj = ResourceManager.GetObject("Haste", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap HexedCha {
+            get {
+                object obj = ResourceManager.GetObject("HexedCha", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap HexedCon {
+            get {
+                object obj = ResourceManager.GetObject("HexedCon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap HexedD {
+            get {
+                object obj = ResourceManager.GetObject("HexedD", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap HexedI {
+            get {
+                object obj = ResourceManager.GetObject("HexedI", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap HexedS {
+            get {
+                object obj = ResourceManager.GetObject("HexedS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap HexedW {
+            get {
+                object obj = ResourceManager.GetObject("HexedW", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Inc {
+            get {
+                object obj = ResourceManager.GetObject("Inc", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Inv {
+            get {
+                object obj = ResourceManager.GetObject("Inv", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Par {
+            get {
+                object obj = ResourceManager.GetObject("Par", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Petr {
+            get {
+                object obj = ResourceManager.GetObject("Petr", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Pois {
+            get {
+                object obj = ResourceManager.GetObject("Pois", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Poly {
+            get {
+                object obj = ResourceManager.GetObject("Poly", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Prone {
+            get {
+                object obj = ResourceManager.GetObject("Prone", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Restr {
+            get {
+                object obj = ResourceManager.GetObject("Restr", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Par,Restr,Stun,Pois,Charm,Fright,HexedS,HexedW,HexedI,HexedCon,HexedD,HexedCha,Blind,Deaf,Exh1,Exh2,Exh3,Exh4,Exh5,Grap,Inc,Inv,Petr,Prone,Unc,Haste,Poly,Bless.
+        /// </summary>
+        internal static string ShortCons {
+            get {
+                return ResourceManager.GetString("ShortCons", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Stun {
+            get {
+                object obj = ResourceManager.GetObject("Stun", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Unc {
+            get {
+                object obj = ResourceManager.GetObject("Unc", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

@@ -27,7 +27,7 @@ namespace InitiativeTracker
             bool exists = false;
             var notes = new List<MainWindow.DMNotes>();
 
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InitiativeTracker";
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\GT_InitiativeTracker";
             string dmnotespath = (path + @"\dmnotes.txt");
 
             if (File.Exists(dmnotespath))

@@ -1,0 +1,1 @@
+Paralyzed, Restrained, Stunned, Poisoned, Charmed, Frightened, Hexed (Strength), Hexed (Wisdom), Hexed (Intelligence), Hexed (Constitution), Hexed (Dexterity), Hexed (Charisma), Blinded, Deafened, Exhausted (1), Exhausted (2), Exhausted (3), Exhausted (4), Exhausted (5), Grappled, Incapacitated, Invisible, Petrified, Prone, Unconcious, Hasted, Polymorphed, Blessed

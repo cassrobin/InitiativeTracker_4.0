@@ -1,20 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Newtonsoft.Json;
 
 namespace InitiativeTracker
@@ -24,15 +19,17 @@ namespace InitiativeTracker
     /// </summary>
     /// 
 
+  
+
     public partial class MainWindow : Window
     {
-        static string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\InitiativeTracker";
+        static string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\GT_InitiativeTracker";
         string partypath = (path + @"\party.txt");
         string dmnotespath = (path + @"\dmnotes.txt");
         string savedinipath = (path + @"\savedinis.txt");
         string next = Environment.NewLine;
 
-               
+
 
         public void savePartyDeets(List<Player> newPlayers)
         {
@@ -86,8 +83,11 @@ namespace InitiativeTracker
                 else
                 { allPlayers = newPlayers; }
 
-                var strOutb = JsonConvert.SerializeObject(allPlayers, new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Objects });
-                File.WriteAllText(partypath, strOutb);
+                if (stop == false)
+                {
+                    var strOutb = JsonConvert.SerializeObject(allPlayers, new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Objects });
+                    File.WriteAllText(partypath, strOutb);
+                }
 
                 if (stop == false)
                 {
@@ -128,6 +128,7 @@ namespace InitiativeTracker
         {
             try
             {
+                //edit so bitmaps are saved separately
                 var existingInitiatives = new List<Initiatives>();
                 var allInitiatives = new List<Initiatives>();
                 var adv = inis[0].ADV;
@@ -144,15 +145,15 @@ namespace InitiativeTracker
                         {
                             if (advs.ADV == adv)
                             {
-                                MessageBoxResult result = MessageBox.Show("This party name already exists. Do you want to replace it with this one?", "Replace old party?", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                                MessageBoxResult result = MessageBox.Show("This party name already exists. Do you want to replace it with this one?", "Replace old party?", MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
-                                if (result == MessageBoxResult.Cancel)
+                                if (result == MessageBoxResult.No)
                                 {
                                     stop = true;
                                     break;
                                 }
 
-                                if (result == MessageBoxResult.OK)
+                                if (result == MessageBoxResult.Yes)
                                 {
                                     replace = true;
                                     break;
@@ -160,8 +161,6 @@ namespace InitiativeTracker
                             }
                         }
                     }
-                    //replace = true;
-
 
                     if (replace == true)
                     {
@@ -186,8 +185,11 @@ namespace InitiativeTracker
                 else
                 { allInitiatives = inis; }
 
-                var strOutb = JsonConvert.SerializeObject(inis, new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Objects }) + next;
-                File.WriteAllText(savedinipath, strOutb);
+                if (stop == false)
+                {
+                    var strOutb = JsonConvert.SerializeObject(inis, new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Objects }) + next;
+                    File.WriteAllText(savedinipath, strOutb);
+                }
             }
 
             catch (Exception e)
@@ -239,7 +241,7 @@ namespace InitiativeTracker
                 return new List<DMNotes>();
             }
         }
-        
+
         public List<Initiatives> loadAllInitiatives()
         {
             try
@@ -268,6 +270,12 @@ namespace InitiativeTracker
             return cons = Properties.Resources.Conditions.Split(',').ToList<string>();
         }
 
+        public static List<String> loadShortCons()
+        {
+            var scons = new List<string>();
+            return scons = Properties.Resources.ShortCons.Split(',').ToList<string>();
+        }
+
         public List<string> loadAdvNames()
         {
             var camps = new List<string>();
@@ -280,7 +288,6 @@ namespace InitiativeTracker
                 else
                     camps.Add(adv.ADV);
             }
-            //camps.Add("New Party");
 
             return camps;
         }
@@ -338,9 +345,18 @@ namespace InitiativeTracker
             return whoops;
         }
 
+        
+
+        //findme
         public List<Initiatives> loadInitiatives(string adv)
         {
             var inis = new List<Initiatives>();
+
+            var iconspath = (@"../../Properties/Images/Conditions/");
+            //var iconspath = (@"/InitiativeTracker;component/Properties/Images/Conditions/");
+            var iconslist = Directory.GetFiles(iconspath, "*.png").ToList<string>();
+            var statusicons = new List<System.Drawing.Image>();
+            var cond = loadConditions();
 
             if (File.Exists(savedinipath))
             {
@@ -349,17 +365,19 @@ namespace InitiativeTracker
                 foreach (var advs in allfights)
                 {
                     if (advs.ADV == adv)
-                    {
+                    {                        
                         inis.Add(new Initiatives()
                         {
                             ADV = adv,
                             ROLL = advs.ROLL,
+                            IND = advs.IND,
                             FOE = advs.FOE,
                             NAME = advs.NAME,
                             DMG = advs.DMG,
-                            STATUS = advs.STATUS,
                             NOTE = advs.NOTE,
-                            CONLIST = loadConditions()
+                            CONLIST = loadConditions(),
+                            STATUS = advs.STATUS,
+                            STATUSICONS = advs.STATUSICONS
                         });
                     }
                 }
@@ -367,6 +385,27 @@ namespace InitiativeTracker
             return inis;
         }
 
+
+        public bool numcheck(string numtochk)
+        {
+            int num;
+            var newText = numtochk;
+            bool isitanum = false;
+
+            if (int.TryParse(newText, out num))
+            {
+                if ((num > 0) && (num < 999))
+                    isitanum = true;
+
+                if (num == 0)
+                    isitanum = true;
+            }
+
+            if (!isitanum)
+                msgbox("Please enter a number from 0-999.");
+
+            return isitanum;
+        }
 
 
         public string hello
@@ -463,7 +502,7 @@ namespace InitiativeTracker
 
             public string ADV { get; set; }
             public string BAD { get; set; }
-            public int HP 
+            public int HP
             {
                 get { return hp; }
                 set
@@ -491,15 +530,20 @@ namespace InitiativeTracker
             public event PropertyChangedEventHandler PropertyChanged;
         }
 
+
         public class DMNotes
         {
             public string ADV { get; set; }
             public string NOTES { get; set; }
         }
 
+        
+        //findme
         public class Initiatives : INotifyPropertyChanged
         {
             private List<string> status;
+            private List<string> statusicons;
+
             protected void OnPropertyChanged(PropertyChangedEventArgs e)
             {
                 PropertyChangedEventHandler handler = PropertyChanged;
@@ -514,6 +558,7 @@ namespace InitiativeTracker
 
             public string ADV { get; set; }
             public bool FOE { get; set; }
+            public int IND { get; set; }
             public int ROLL { get; set; }
             public string NAME { get; set; }
             public int DMG { get; set; }
@@ -533,7 +578,20 @@ namespace InitiativeTracker
                 }
             }
 
-            public event PropertyChangedEventHandler PropertyChanged;
+        public List<string> STATUSICONS
+        {
+            get { return statusicons; }
+            set
+            {
+                if (value != statusicons)
+                {
+                    statusicons = value;
+                    OnPropertyChanged("STATUSICONS");
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
         }
 
         public MessageBoxResult msgbox(string msg)
@@ -828,17 +886,36 @@ namespace InitiativeTracker
             var fighter = new Initiatives
             {
                 ADV = currentPick,
-                FOE = false,
+                FOE = true,
                 NAME = "Name",
                 ROLL = 14,
                 DMG = 42,
                 STATUS = null,
+                STATUSICONS = null,
                 NOTE = null,
                 CONLIST = loadConditions()
             };
 
             return fighter;
-        }            
+        }
+
+        public Initiatives lairFighter()
+        {
+            var fighter = new Initiatives
+            {
+                ADV = currentPick,
+                FOE = true,
+                NAME = "Lair",
+                ROLL = 20,
+                DMG = 42,
+                STATUS = null,
+                STATUSICONS = null,
+                NOTE = null,
+                CONLIST = loadConditions()
+            };
+
+            return fighter;
+        }
 
 
         public Visibility updateLists(string adv)
@@ -886,27 +963,6 @@ namespace InitiativeTracker
             hdr.Width = double.NaN;
         }
 
-        //public void rotateScroller(ScrollBar sb)
-        //{           
-        //    sb.Value = 0;
-        //    sb.Minimum = 0;
-        //    sb.Maximum = 999;
-        //    sb.SmallChange = 1;
-        //    sb.Orientation = Orientation.Vertical;
-
-        //    var rotate = new RotateTransform();
-        //    var group = new TransformGroup();
-
-        //    rotate.Angle = 180;
-        //    group.Children.Add(rotate);
-
-        //    sb.RenderTransform = group;
-        //    sb.RenderTransformOrigin = new Point(0.5, 0.5);
-        //}
-
-
-
-
 
 
         //start
@@ -918,22 +974,6 @@ namespace InitiativeTracker
 
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
-
-         
-
-            //if (advs.ADV == adv)
-            //{
-            //    MessageBoxResult result = MessageBox.Show("This party name already exists. Do you want to replace it with this one?", "Replace old party?", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
-
-            //    if (result == MessageBoxResult.Cancel)
-            //        stop = true;
-
-            //    if (result == MessageBoxResult.OK)
-            //        replace = true;
-
-            //    break;
-            //}
-
 
             if (File.Exists(partypath))
             {
@@ -957,6 +997,8 @@ namespace InitiativeTracker
 
                     if (fighters.Count > 0)
                         loadBattle.Visibility = Visibility.Visible;
+
+                    //findme
                 }
             }
 
@@ -983,50 +1025,35 @@ namespace InitiativeTracker
             if (String.IsNullOrEmpty(adv))
                 msgbox("You need to enter a party name.");
 
-            else if (String.IsNullOrEmpty(pnt) || (Convert.ToInt32(pnt) <= 0))
-                msgbox("You need to enter the number of players.");
+            bool isitanum = numcheck(pnt);
 
-            else
+            if (!isitanum)
+                partyNum.Text = "0";
+
+            if (isitanum)
             {
-                var play = new List<Player>();
-                int pn = (Convert.ToInt32(partyNum.Text));
+                if (String.IsNullOrEmpty(pnt) || (Convert.ToInt32(pnt) <= 0))
+                {
+                    msgbox("You need to enter the number of players.");
+                    partyNum.Text = "0";
+                }
 
-                for (var p = 0; p < pn; p++)
-                    play.Add(GetDefaultPlayerDeets());
+                else
+                {
+                    var play = new List<Player>();
+                    int pn = (Convert.ToInt32(partyNum.Text));
 
-                newPartyList.ItemsSource = play;
-                partyBorder.Visibility = Visibility.Visible;
+                    for (var p = 0; p < pn; p++)
+                        play.Add(GetDefaultPlayerDeets());
+
+                    newPartyList.ItemsSource = play;
+                    partyBorder.Visibility = Visibility.Visible;
+                }
             }
         }
 
         private void partyNum_KeyDown(object sender, KeyEventArgs e)
         {
-            var tb = sender as TextBox;
-            var oldNum = Convert.ToInt32(tb.Text);
-            var newNum = oldNum;
-
-            if (e.IsDown && e.Key == Key.Down)
-            {
-                e.Handled = true;
-
-                if (oldNum > 0)
-                {
-                    newNum = (oldNum - 1);
-                    tb.Text = newNum.ToString();
-                }
-            }
-
-            if (e.IsDown && e.Key == Key.Up)
-            {
-                e.Handled = true;
-
-                if (oldNum < 999)
-                {
-                    newNum = (oldNum + 1);
-                    tb.Text = newNum.ToString();
-                }
-            }
-
             if (e.Key == Key.Return)
                 partyGo_Click(null, null);
         }
@@ -1051,7 +1078,7 @@ namespace InitiativeTracker
         {
             var tb = (TextBlock)(sender as Button).Content;
             tb.Foreground = new SolidColorBrush(Colors.Ivory);
-            tb.Background = new SolidColorBrush(Colors.Black);                        
+            tb.Background = new SolidColorBrush(Colors.Black);
         }
 
         private void block_MouseEnter(object sender, RoutedEventArgs e)
@@ -1071,33 +1098,42 @@ namespace InitiativeTracker
         private void numbox_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             var tb = sender as TextBox;
-            var oldNum = Convert.ToInt32(tb.Text);
-            var newNum = oldNum;
+            var newText = tb.Text;
 
-            if (e.IsDown && e.Key == Key.Down)
+            bool isitanum = numcheck(newText);
+
+            if (!isitanum)
+                tb.Text = "0";
+
+            if (isitanum)
             {
-                e.Handled = true;
+                var oldNum = Convert.ToInt32(tb.Text);
+                var newNum = oldNum;
 
-                if (oldNum > 0)
+                if (e.IsDown && e.Key == Key.Down)
                 {
-                    newNum = (oldNum - 1);
-                    tb.Text = newNum.ToString();
-                }               
-            }
+                    e.Handled = true;
 
-            if (e.IsDown && e.Key == Key.Up)
-            {
-                e.Handled = true;
+                    if (oldNum > 0)
+                    {
+                        newNum = (oldNum - 1);
+                        tb.Text = newNum.ToString();
+                    }
+                }
 
-                if (oldNum < 999)
+                if (e.IsDown && e.Key == Key.Up)
                 {
-                    newNum = (oldNum + 1);
-                    tb.Text = newNum.ToString();
+                    e.Handled = true;
+
+                    if (oldNum < 999)
+                    {
+                        newNum = (oldNum + 1);
+                        tb.Text = newNum.ToString();
+                    }
                 }
             }
         }
 
-        
 
         private void goBack_Click(object sender, RoutedEventArgs e)
         {
@@ -1188,7 +1224,7 @@ namespace InitiativeTracker
             newPartyList.ItemsSource = play;
         }
 
-        
+
         private void saveParty_Click(object sender, RoutedEventArgs e)
         {
             var adv = partyName.Text;
@@ -1340,12 +1376,12 @@ namespace InitiativeTracker
         {
             var butt = sender as Button;
 
-            Point buttPoint = butt.TransformToAncestor(this).Transform(new Point(0, 0));
+            System.Windows.Point buttPoint = butt.TransformToAncestor(this).Transform(new System.Windows.Point(0, 0));
 
             var dmnWindow = new DMNotesWindow();
             dmnWindow.Top = buttPoint.Y + 50;
             dmnWindow.Left = buttPoint.X - 40;
-            dmnWindow.Show();            
+            dmnWindow.Show();
         }
 
         private void InitiativeTracker_Closing(object sender, CancelEventArgs e)
@@ -1473,49 +1509,68 @@ namespace InitiativeTracker
 
             playersBattleList.ItemsSource = play;
 
+            bool isitanum;
+
             if (guestsBox.IsChecked == true)
             {
                 var guestNum = guestsNum.Text;
-                int gn = Convert.ToInt32(guestNum);
 
-                if (gn > 0)
+                isitanum = numcheck(guestNum);
+
+                if (!isitanum)
+                    guestsNum.Text = "0";
+
+                if (isitanum)
                 {
-                    var guestList = new List<Player>();
+                    int gn = Convert.ToInt32(guestNum);
 
-                    for (var star = 0; star < gn; star++)
-                        guestList.Add(GetDefaultPlayerDeets());
+                    if (gn > 0)
+                    {
+                        var guestList = new List<Player>();
 
-                    guestsBattleList.ItemsSource = guestList;
-                    guestsBattlePanel.Visibility = Visibility.Visible;
-                }                
+                        for (var star = 0; star < gn; star++)
+                            guestList.Add(GetDefaultPlayerDeets());
+
+                        guestsBattleList.ItemsSource = guestList;
+                        guestsBattlePanel.Visibility = Visibility.Visible;
+                    }
+                }
             }
             else
                 guestsBattlePanel.Visibility = Visibility.Collapsed;
 
             var baddieNum = baddiesNum.Text;
-            var bn = Convert.ToInt32(baddieNum);
 
-            if (bn > 0)
+            isitanum = numcheck(baddieNum);
+
+            if (!isitanum)
+                baddiesNum.Text = "0";
+
+            if (isitanum)
             {
-                var baddieList = new List<Baddies>();
+                var bn = Convert.ToInt32(baddieNum);
 
-                for (var bad = 0; bad < bn; bad++)
+                if (bn > 0)
                 {
-                    baddieList.Add(new Baddies()
-                    {
-                        ADV = adv,
-                        BAD = "monster" + (bad + 1),
-                        HP = 10,
-                        INI = 0
-                    });
-                }
+                    var baddieList = new List<Baddies>();
 
-                baddiesBattleList.ItemsSource = baddieList;
-                baddiesBattlePanel.Visibility = Visibility.Visible;
+                    for (var bad = 0; bad < bn; bad++)
+                    {
+                        baddieList.Add(new Baddies()
+                        {
+                            ADV = adv,
+                            BAD = "monster" + (bad + 1),
+                            HP = 10,
+                            INI = 0
+                        });
+                    }
+
+                    baddiesBattleList.ItemsSource = baddieList;
+                    baddiesBattlePanel.Visibility = Visibility.Visible;
+                }
+                else
+                    baddiesBattlePanel.Visibility = Visibility.Collapsed;
             }
-            else
-                baddiesBattlePanel.Visibility = Visibility.Collapsed;
-            
         }
 
         private void rollD20_Click(object sender, RoutedEventArgs e)
@@ -1528,7 +1583,6 @@ namespace InitiativeTracker
 
             var listView = new ListView().Items;
 
-            //make these a method(type, listview, object)
             var hero = rollDC as Player;
             if (hero != null)
             {
@@ -1578,8 +1632,6 @@ namespace InitiativeTracker
                     }
                 }
             }
-
-
         }
 
         private void deliniGuest_Click(object sender, RoutedEventArgs e)
@@ -1644,13 +1696,8 @@ namespace InitiativeTracker
         {
             battleSetupBorder.Visibility = Visibility.Hidden;
             guestsBox.IsChecked = false;
-            guestsNum.Text = "2";
             lairBox.IsChecked = false;
-            baddiesNum.Text = "2";
         }
-
-
-
 
         private void addGuest_Click(object sender, RoutedEventArgs e)
         {
@@ -1755,58 +1802,38 @@ namespace InitiativeTracker
             baddiesBattleList.ItemsSource = baddie;
         }
 
-        //findme
         private void loadBattle_Click(object sender, RoutedEventArgs e)
         {
             var adv = currentPick;
-
-            bool load = false;
             var allInis = loadAllInitiatives();
             var theseInis = loadInitiatives(adv);
+            var fighters = new List<Initiatives>();
 
-            foreach (var ini in allInis)
+            foreach (var fighter in theseInis)
             {
-                if (ini.ADV == adv)
+                var ind = theseInis.IndexOf(fighter);
+
+                fighters.Add(new Initiatives()
                 {
-                    MessageBoxResult result = MessageBox.Show("This party has saved initiatives. Do you want to replace load them now?", "Load Battle?", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
-
-                    if (result == MessageBoxResult.OK)
-                        load = true;
-
-                    break;
-                }
+                    ADV = adv,
+                    IND = fighter.IND,
+                    ROLL = fighter.ROLL,
+                    FOE = fighter.FOE,
+                    NAME = fighter.NAME,
+                    DMG = fighter.DMG,
+                    STATUS = fighter.STATUS,
+                    STATUSICONS = fighter.STATUSICONS,
+                    NOTE = fighter.NOTE,
+                    CONLIST = fighter.CONLIST
+                });
             }
 
-            if (load == true)
-            {                
-                var fighters = new List<Initiatives>();
+            initiativesList.ItemsSource = fighters;
 
-                foreach (var fighter in theseInis)
-                {
-                    fighters.Add(new Initiatives()
-                    {
-                        ADV = adv,
-                        ROLL = fighter.ROLL,
-                        FOE = fighter.FOE,
-                        NAME = fighter.NAME,
-                        DMG = fighter.DMG,
-                        STATUS = fighter.STATUS,
-                        NOTE = fighter.NOTE,
-                        CONLIST = fighter.CONLIST
-                    });
-                }
-                
-                fighters.Sort((p, q) => p.ROLL.CompareTo(q.ROLL));
-                fighters.Reverse();
-
-                //initiativesList.Items.Clear();
-                initiativesList.ItemsSource = fighters;
-
-                battleSetupUIBorder.Visibility = Visibility.Hidden;
-                battleSetupBorder.Visibility = Visibility.Hidden;
-                initiativesBorder.Visibility = Visibility.Visible;
-                campButton.IsEnabled = false;
-            }
+            battleSetupUIBorder.Visibility = Visibility.Hidden;
+            battleSetupBorder.Visibility = Visibility.Hidden;
+            initiativesBorder.Visibility = Visibility.Visible;
+            campButton.IsEnabled = false;
         }
 
         private void sortButton_Click(object sender, RoutedEventArgs e)
@@ -1820,10 +1847,11 @@ namespace InitiativeTracker
                 {
                     ADV = adv,
                     ROLL = item.INI,
-                    FOE = false,                    
+                    FOE = true,
                     NAME = item.RPG,
                     DMG = 0,
                     STATUS = null,
+                    STATUSICONS = null,
                     NOTE = null,
                     CONLIST = loadConditions()
                 });
@@ -1832,13 +1860,14 @@ namespace InitiativeTracker
             foreach (var item in guestsBattleList.Items.OfType<Player>())
             {
                 fighters.Add(new Initiatives()
-                {                    
+                {
                     ADV = adv,
                     ROLL = item.INI,
-                    FOE = false,
+                    FOE = true,
                     NAME = item.RPG,
                     DMG = 0,
                     STATUS = null,
+                    STATUSICONS = null,
                     NOTE = null,
                     CONLIST = loadConditions()
                 });
@@ -1850,19 +1879,48 @@ namespace InitiativeTracker
                 {
                     ADV = adv,
                     ROLL = item.INI,
-                    FOE = true,                    
+                    FOE = false,
                     NAME = item.BAD,
                     DMG = item.HP,
                     STATUS = null,
+                    STATUSICONS = null,
                     NOTE = null,
                     CONLIST = loadConditions()
                 });
             }
 
-            fighters.Sort((p, q) => p.ROLL.CompareTo(q.ROLL));
+            if (lairBox.IsChecked == true)
+            {
+                bool lb = true;
+
+                foreach (var f in fighters)
+                {
+                    if (f.NAME == "Lair")
+                    {
+                        fighters.Remove(f);
+                        lb = false;
+                    }
+
+                    if (!lb)
+                        break;
+                }
+                var lair = lairFighter();
+                fighters.Add(lair);
+            }
+
+            fighters.Sort((p, q) =>
+            {
+                var f = p.ROLL.CompareTo(q.ROLL);
+                if (f == 0) f = p.FOE.CompareTo(q.FOE);
+                return f;
+            });
+
             fighters.Reverse();
+
+            foreach (var f in fighters)
+                f.IND = fighters.IndexOf(f);
+
             saveInitiatives(fighters);
-            
 
             initiativesList.ItemsSource = fighters;
 
@@ -1892,10 +1950,13 @@ namespace InitiativeTracker
             {
                 if (initiativesList.Items.OfType<Initiatives>().ToList().IndexOf(item) == row)
                 {
-                    cons = item.STATUS;
-
-                    if (cons != null)
+                    if (item.STATUS != null)
                     {
+                        foreach (var s in item.STATUS)
+                        {
+                            cons.Add(s);
+                        }
+
                         foreach (var stat in statusList.Items)
                         {
                             if (cons.Contains(stat))
@@ -1909,6 +1970,10 @@ namespace InitiativeTracker
         private void statusListPopup_Closed(object sender, EventArgs e)
         {
             var cons = new List<string>();
+            var adv = currentPick;
+            var iconspath = (@"../../Properties/Images/Conditions/");
+            var iconslist = Directory.GetFiles(iconspath, "*.png").ToList<string>();
+            var cond = loadConditions();
 
             foreach (var item in statusList.SelectedItems)
                 cons.Add(item.ToString());
@@ -1916,9 +1981,25 @@ namespace InitiativeTracker
             foreach (var item in initiativesList.Items.OfType<Initiatives>())
             {
                 if (initiativesList.Items.OfType<Initiatives>().ToList().IndexOf(item) == row)
-                    item.STATUS = cons;
-            }
+                {
+                    if (cons != null)
+                    {
+                        var paths = new List<string>();
+                        var slist = new List<string>();
 
+                        foreach (var c in cons)
+                        {
+                            slist.Add(c);
+
+                            var i = cond.IndexOf(c);
+                            paths.Add(iconslist[i]);
+                        }
+
+                        item.STATUS = slist;
+                        item.STATUSICONS = paths;
+                    }
+                }
+            }
             statusList.SelectedItems.Clear();
         }
 
@@ -1927,8 +2008,8 @@ namespace InitiativeTracker
             var lbSelItems = statusList.SelectedItems;
             int cnt = lbSelItems.Count;
 
-            if (cnt >= 10)
-                lbSelItems.RemoveAt(9);
+            if (cnt >= 13)
+                lbSelItems.RemoveAt(12);
         }
 
         private void statusCheckBox_Unchecked(object sender, EventArgs e)
@@ -1941,25 +2022,28 @@ namespace InitiativeTracker
             var adv = currentPick;
             var fighters = new List<Initiatives>();
 
+            var iconspath = (@"../../Properties/Images/Conditions/");
+            var iconslist = Directory.GetFiles(iconspath, "*.png").ToList<string>();
+            var cond = loadConditions();
+
             foreach (var item in initiativesList.Items.OfType<Initiatives>())
             {
                 fighters.Add(new Initiatives()
                 {
                     ADV = adv,
+                    IND = item.IND,
                     ROLL = item.ROLL,
                     FOE = item.FOE,
                     NAME = item.NAME,
                     DMG = item.DMG,
                     STATUS = item.STATUS,
+                    STATUSICONS = item.STATUSICONS,
                     NOTE = item.NOTE,
                     CONLIST = item.CONLIST
                 });
             }
 
-            fighters.Sort((p, q) => p.ROLL.CompareTo(q.ROLL));
-            fighters.Reverse();
             saveInitiatives(fighters);
-
             initiativesList.ItemsSource = fighters;
         }
 
@@ -1996,7 +2080,7 @@ namespace InitiativeTracker
             var fighter = new List<Initiatives>();
             fighter.Add(NewFighter());
 
-            newFighterLV.ItemsSource = fighter;            
+            newFighterLV.ItemsSource = fighter;
         }
 
         private void quitNewFighter_Click(object sender, EventArgs e)
@@ -2014,23 +2098,25 @@ namespace InitiativeTracker
                 fighters.Add(new Initiatives()
                 {
                     ADV = adv,
+                    IND = item.IND,
                     ROLL = item.ROLL,
                     FOE = item.FOE,
                     NAME = item.NAME,
                     DMG = item.DMG,
                     STATUS = item.STATUS,
+                    STATUSICONS = item.STATUSICONS,
                     NOTE = item.NOTE,
                     CONLIST = item.CONLIST
                 });
             }
-                        
+
             foreach (var item in newFighterLV.Items.OfType<Initiatives>())
             {
                 int dmg;
                 if (item.FOE)
-                    dmg = 0;
+                    dmg = item.DMG;
                 else
-                    dmg = item.DMG;                    
+                    dmg = 0;
 
                 fighters.Add(new Initiatives()
                 {
@@ -2040,18 +2126,53 @@ namespace InitiativeTracker
                     NAME = item.NAME,
                     DMG = dmg,
                     STATUS = item.STATUS,
+                    STATUSICONS = item.STATUSICONS,
                     NOTE = item.NOTE,
                     CONLIST = item.CONLIST
                 });
-
             }
 
-            fighters.Sort((p, q) => p.ROLL.CompareTo(q.ROLL));
-            fighters.Reverse();
+            var noob = fighters.Last();
+
+            for (var og = fighters.Count - 1; og >= 0; og--)
+            {
+                if (noob.ROLL > fighters[og].ROLL)
+                {
+                    var tempn = noob;
+                    fighters.Remove(noob);
+                    fighters.Insert(og, noob);
+                }
+            }
+
+            if (noob.FOE == true)
+            {
+                var noobI = fighters.IndexOf(noob);
+                if (noobI > 0)
+                {
+                    for (var n = noobI - 1; n >= 0; n--)
+                    {
+                        var yo = fighters[n];
+
+                        if (yo.FOE == false)
+                        {
+                            if (yo.ROLL == noob.ROLL)
+                            {
+                                var temp = fighters[n];
+                                fighters[n] = fighters[noobI];
+                                fighters[noobI] = temp;
+                            }
+                        }
+                    }
+                }
+            }
+
+            foreach (var f in fighters)
+                f.IND = fighters.IndexOf(f);
 
             initiativesList.ItemsSource = fighters;
             newFighterPopup.IsOpen = false;
         }
+
 
         private void foeChk_Checked(object sender, EventArgs e)
         {
@@ -2064,8 +2185,8 @@ namespace InitiativeTracker
         }
 
         void partynumScrollbar_ValueChanged(object sender, ScrollEventArgs e)
-        {                     
-            var sb = sender as ScrollBar;            
+        {
+            var sb = sender as ScrollBar;
             partyNum.Text = sb.Value.ToString();
         }
 
@@ -2078,7 +2199,7 @@ namespace InitiativeTracker
         void baddiesnumScrollbar_ValueChanged(object sender, ScrollEventArgs e)
         {
             var sb = sender as ScrollBar;
-            baddiesNum.Text = sb.Value.ToString();            
+            baddiesNum.Text = sb.Value.ToString();
         }
 
         void ppScrollbar_ValueChanged(object sender, ScrollEventArgs e)
@@ -2088,10 +2209,10 @@ namespace InitiativeTracker
             int sbIndex = newPartyList.Items.IndexOf(sbContext);
 
             foreach (var item in newPartyList.Items.OfType<Player>())
-            {                
-                if (newPartyList.Items.IndexOf(item) == sbIndex)                
-                    item.PP = Convert.ToInt32(sb.Value);                    
-            }            
+            {
+                if (newPartyList.Items.IndexOf(item) == sbIndex)
+                    item.PP = Convert.ToInt32(sb.Value);
+            }
         }
 
         void acScrollbar_ValueChanged(object sender, ScrollEventArgs e)
@@ -2210,6 +2331,60 @@ namespace InitiativeTracker
                     item.DMG = Convert.ToInt32(sb.Value);
             }
         }
+
+        private void moveScrollbar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            var adv = currentPick;
+            var fighters = new List<Initiatives>();
+
+            foreach (var item in initiativesList.Items.OfType<Initiatives>())
+            {
+                fighters.Add(new Initiatives()
+                {
+                    ADV = adv,
+                    IND = item.IND,
+                    ROLL = item.ROLL,
+                    FOE = item.FOE,
+                    NAME = item.NAME,
+                    DMG = item.DMG,
+                    STATUS = item.STATUS,
+                    STATUSICONS = item.STATUSICONS,
+                    NOTE = item.NOTE,
+                    CONLIST = item.CONLIST
+                });
+            }
+
+            var move = sender as ScrollBar;
+            var mvContext = move.DataContext;
+            int mvIndex = initiativesList.Items.IndexOf(mvContext);
+
+            if (e.NewValue < e.OldValue)
+            {
+                if (mvIndex < fighters.Count - 1)
+                {
+                    var temp = fighters[mvIndex];
+                    fighters[mvIndex] = fighters[mvIndex + 1];
+                    fighters[mvIndex + 1] = temp;
+                }
+            }
+
+            else
+            {
+                if (mvIndex > 0)
+                {
+                    var temp = fighters[mvIndex];
+                    fighters[mvIndex] = fighters[mvIndex - 1];
+                    fighters[mvIndex - 1] = temp;
+                }
+            }
+
+            foreach (var f in fighters)
+                f.IND = fighters.IndexOf(f);
+
+            initiativesList.ItemsSource = fighters;
+        }
+
+
 
 
         //display in ListView: INI  NAME  "Damage Done: " or "Health Remaining: "

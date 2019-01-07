@@ -118,7 +118,94 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Bless" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\Bless.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Blind" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\Blind.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Charm" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\Charm.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Conditions" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Conditions.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="Deaf" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\Deaf.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Exh1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\Exh1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Exh2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\Exh2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Exh3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\Exh3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Exh4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\Exh4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Exh5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\Exh5.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Fright" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\Fright.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Grap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\Grap.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Haste" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\Haste.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HexedCha" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\HexedCha.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HexedCon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\HexedCon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HexedD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\HexedD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HexedI" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\HexedI.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HexedS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\HexedS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HexedW" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\HexedW.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Inc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\Inc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Inv" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\Inv.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Par" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\Par.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Petr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\Petr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Pois" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\Pois.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Poly" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\Poly.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Prone" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\Prone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Restr" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\Restr.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ShortCons" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>ShortCons.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="Stun" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\Stun.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Unc" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Images\Conditions\Unc.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

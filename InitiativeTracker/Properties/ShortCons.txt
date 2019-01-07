@@ -1,0 +1,1 @@
+Par,Restr,Stun,Pois,Charm,Fright,HexedS,HexedW,HexedI,HexedCon,HexedD,HexedCha,Blind,Deaf,Exh1,Exh2,Exh3,Exh4,Exh5,Grap,Inc,Inv,Petr,Prone,Unc,Haste,Poly,Bless

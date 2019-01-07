@@ -31,7 +31,7 @@
 
         <TextBox x:Name="dmnoteBox" FontSize="14" FontFamily="Calibri" BorderThickness="1" Foreground="LightGray" Background="DarkSlateGray" Opacity=".9"
                         Text="{Binding Path=Notes, Mode=OneWay}" MinWidth="250" MinHeight="250" Padding="5,2,5,2" Margin="5,20,5,5" 
-                        TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" HorizontalScrollBarVisibility="Auto"
+                        TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" HorizontalScrollBarVisibility="Auto" AcceptsReturn="True"
                         Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Grid.RowSpan="4" />
         <DockPanel Name="saveNotesPanel" Background="Transparent" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="5" Grid.IsSharedSizeScope="True" VerticalAlignment="Bottom">
             <Button Name="saveNotesButton" Click="saveNotesButton_Click" Background="Transparent" BorderThickness="2" BorderBrush="DarkSlateGray"
